@@ -17,13 +17,14 @@ public class MainController extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		String configPath = getServletConfig().getInitParameter("config");
-		System.out.println("MainController.init() called: "+ configPath);
+		System.out.println("MainController.init() called:" + configPath);
+		
 		super.init();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String actionName = request.getParameter("a");
-		
+
 		ActionFactory af = new MainActionFactory();
 		Action action = af.getAction(actionName);
 		action.execute(request, response);

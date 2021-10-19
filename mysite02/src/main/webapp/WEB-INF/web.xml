@@ -27,10 +27,14 @@
 	<filter>
 		<filter-name>EncodingFilter</filter-name>
 		<filter-class>com.douzone.web.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>		
 	</filter>
 	<filter-mapping>
 		<filter-name>EncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/*</url-pattern>	
 	</filter-mapping>
 	
 	<!-- Servlets -->
@@ -55,5 +59,23 @@
 		<servlet-name>UserController</servlet-name>
 		<url-pattern>/user</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GuestbookController</servlet-name>
+		<servlet-class>com.douzone.mysite.controller.GuestbookController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GuestbookController</servlet-name>
+		<url-pattern>/guestbook</url-pattern>
+	</servlet-mapping>		
+	
+	<servlet>
+		<servlet-name>BoardController</servlet-name>
+		<servlet-class>com.douzone.mysite.controller.BoardController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BoardController</servlet-name>
+		<url-pattern>/board</url-pattern>
+	</servlet-mapping>	
 	
 </web-app>
