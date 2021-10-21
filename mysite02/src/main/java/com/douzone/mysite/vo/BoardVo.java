@@ -12,6 +12,13 @@ public class BoardVo {
 	private Long user_no;
 	private String user_name;
 	
+	@Override
+	public String toString() {
+		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", hit=" + hit + ", reg_date="
+				+ reg_date + ", group_no=" + group_no + ", order_no=" + order_no + ", depth=" + depth + ", user_no="
+				+ user_no + ", user_name=" + user_name + "]";
+	}
+	
 	
 	public Long getUser_no() {
 		return user_no;

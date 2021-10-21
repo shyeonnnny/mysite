@@ -12,15 +12,19 @@ public class BoardActionFactory extends ActionFactory{
 			action = new WriteAction();
 		} else if("writeform".equals(actionName)) {
 			action = new WriteFormAction();
-		} else if("boardview".equals(actionName)) {
-			action = new BoardViewAction();
-		} else if("update".equals(actionName)) {
-			action = new UpdateAction();
 		} else if("delete".equals(actionName)) {
 			action = new DeleteAction();
 		} else if("deleteform".equals(actionName)) {
 			action = new DeleteFormAction();
-		}else {
+		} else if("view".equals(actionName)) {
+			action = new ViewAction();
+		} else if("viewform".equals(actionName)) {
+			action = new ViewFormAction();
+		} else if("modifyform".equals(actionName)) { // 글내용보기
+			action = new ModifyformAction();
+		} else if("modify".equals(actionName)) { // 글내용보기
+			action = new ModifyAction();
+		} else {
 			action = new BoardAction();
 		}
 		return action;

@@ -16,8 +16,8 @@ public class LoginAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+		String email = request.getParameter("u_email");
+		String password = request.getParameter("u_password");
 		
 		UserVo userVo = new UserDao().findByEmailAndPassword(email, password);
 		if(userVo == null) {
