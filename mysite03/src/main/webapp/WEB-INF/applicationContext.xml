@@ -24,6 +24,20 @@
 		<property name="password" value="webdb" />
 	</bean>
 	
+	<!-- MyBatis SqlSessionFactoryBean --> 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> <!-- ref는 위 Connection어쩌고에서 bean id를 넣어주면됨 -->
+		<property name="configLocation" value="classpath:mybatis/configuration.xml" /> 
+		<!-- 위 value에서 mybatis는 classpath이기때문에 resources에서 같은이름으로 패키지를 만들어주고 configuration xml파일을 만들어줌 -->
+	</bean>
+	
+	<!-- MyBatis SqlSessionTemplate --> 
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	
+	
 	<context:annotation-config />
 	<context:component-scan base-package="com.douzone.mysite.service, com.douzone.mysite.repository, com.douzone.mysite.aspect">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
