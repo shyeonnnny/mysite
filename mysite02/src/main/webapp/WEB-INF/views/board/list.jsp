@@ -48,7 +48,6 @@
 						<td><a href="${pageContext.request.contextPath }/board?ba=deleteform&no=${vo.no }" class="del" >삭제</a></td>
 						</c:when>
 						<c:otherwise>
-						<td><a href="${pageContext.request.contextPath }/board" class="del" >삭제</a></td>
 						</c:otherwise>
 						</c:choose>
 
