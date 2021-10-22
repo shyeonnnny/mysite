@@ -2,14 +2,14 @@ package com.douzone.mysite.vo;
 
 public class BoardVo {
 	private Long no;
+	private Long user_no;
 	private String title;
 	private String contents;
-	private int hit;
+	private Long hit;
 	private String reg_date;
 	private int group_no;
 	private int order_no;
 	private int depth;
-	private Long user_no;
 	private String user_name;
 	
 	@Override
@@ -51,10 +51,10 @@ public class BoardVo {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public int getHit() {
+	public Long getHit() {
 		return hit;
 	}
-	public void setHit(int hit) {
+	public void setHit(Long hit) {
 		this.hit = hit;
 	}
 	public String getReg_date() {

@@ -11,25 +11,20 @@ import com.douzone.mysite.vo.BoardVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class ModifyAction implements Action {
+public class ReplyFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String no = request.getParameter("no");
-		String title = request.getParameter("title");
-		String contents = request.getParameter("contents");
-
+		
+		String wno = request.getParameter("no");
+		
 		BoardVo vo = new BoardVo();
-		vo.setNo(Long.parseLong(no));
-		vo.setTitle(title);
-		vo.setContents(contents);
-
-		new BoardDao().update(vo);
-
-		MvcUtil.redirect(request.getContextPath()+"/board", request, response);
+		BoardDao dao = new BoardDao();
+		vo = dao.findByNo(Long.parseLong(wno));
+		request.setAttribute("vo", vo);
 		
-		
+		MvcUtil.forward("board/reply", request, response);
+
 	}
 
 }

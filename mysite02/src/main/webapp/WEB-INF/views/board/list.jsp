@@ -32,11 +32,26 @@
 				<c:forEach items="${list }" var="vo" varStatus="status"> 
 					<tr>
 						<td>${count-status.index }</td>
-						<td style="text-align:left; padding-left:0px"><a href="${pageContext.request.contextPath }/board?ba=viewform&no=${vo.no }">${vo.title }</a></td>
+						<td style="text-align:left; padding-left:${(vo.depth-1)*20}px;">
+						<c:choose>
+						<c:when test='${vo.depth >= 1 }'>
+						<img src="${pageContext.request.contextPath }/assets/images/reply.png" />
+						</c:when>
+						</c:choose>
+						<a href="${pageContext.request.contextPath }/board?ba=viewform&no=${vo.no }">${vo.title }</a></td>
 						<td>${vo.user_name }</td>
 						<td>${vo.hit }</td>
-						<td>${vo.reg_date }</td>
-						<td><a href="${pageContext.request.contextPath }/board?ba=deleteform&no=${vo.no }" class="del">삭제</a></td>
+						<td>${vo.reg_date }</td>	
+											
+						<c:choose>
+						<c:when test="${vo.user_no  eq authUser.no }">				
+						<td><a href="${pageContext.request.contextPath }/board?ba=deleteform&no=${vo.no }" class="del" >삭제</a></td>
+						</c:when>
+						<c:otherwise>
+						<td><a href="${pageContext.request.contextPath }/board" class="del" >삭제</a></td>
+						</c:otherwise>
+						</c:choose>
+
 					</tr>
 				
 				</c:forEach>

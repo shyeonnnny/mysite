@@ -26,10 +26,13 @@ public class ViewFormAction implements Action {
 			return;
 		}
 		
+		
+		
 		String no = request.getParameter("no");
+
 		BoardVo vo = new BoardDao().BoardView(Long.parseLong(no));
+		new BoardDao().hitUpdate(Long.parseLong(no));
 		request.setAttribute("vo", vo);
-		System.out.println("print@@@" + vo.getUser_no());
 		MvcUtil.forward("board/view", request, response);
 	}
 
