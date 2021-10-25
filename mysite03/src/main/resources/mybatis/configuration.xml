@@ -4,10 +4,14 @@
 	<typeAliases>
 		<typeAlias type="com.douzone.mysite.vo.GuestbookVo" alias="guestbookvo" />
 		<typeAlias type="com.douzone.mysite.vo.UserVo" alias="uservo" />
-				<!-- alias는 소문자로 적어줘야하는 규칙이있음 -->
+		<typeAlias type="com.douzone.mysite.vo.GalleryVo" alias="galleryvo" />
+		<typeAlias type="com.douzone.mysite.vo.BoardVo" alias="boardvo" />
+		<!-- alias는 소문자로 적어줘야하는 규칙이있음 -->
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/guestbook.xml" />
 		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/gallery.xml" />
+		<mapper resource="mybatis/mappers/board.xml" />
 	</mappers>
 </configuration>

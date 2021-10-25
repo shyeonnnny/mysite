@@ -3,13 +3,12 @@ package com.douzone.mysite.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-public
+import com.douzone.mysite.security.Auth;
 
+@Auth(role="ADMIN")
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin") // 경로지정아님 공부다시하기
 class AdminController {
-	
-	
 	
 	@RequestMapping("")
 	public String main() {

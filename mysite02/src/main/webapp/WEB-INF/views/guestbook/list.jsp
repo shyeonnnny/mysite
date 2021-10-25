@@ -9,6 +9,61 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+
+<script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script>
+$(function(){
+	${"#btn-check-eamail"}.click(function(){
+		var email = $("email").val();
+		// var를 써서 email은 블락안에서만 쓸 수 있음
+		//console.log(email);
+		
+		if(email == ''){
+			return;
+		}
+		console.log(email);
+		$ajax({
+			url:"${pageContext.request.contextPath }/user/api/checkemail?email="+email,
+			type: "get",
+			dataType:"json",
+			success: function(response){
+				console.log(response);
+			}
+		});
+		// 확인할때는 페이지에서 F11눌러서 봐가면서해야함
+	});
+	
+	
+};
+setTimetout(function()){
+	// ajax 
+	//
+	$.ajax({
+		url : "/mysite03/hello",
+		type : "get",
+		dataType:"json",
+//		data : Json.stringify({})
+		success : function(response){
+			console.log(response);
+			p = $("#test");
+			p.html("<strong>" + response.message + "</strong>");
+		}
+	});
+	
+	o = {
+			message: "Hello World"
+	};
+	$p = $("#test");// #id를 넣어줘야함
+	$p.html("<strong>" + o.message + ""</strong>");
+//	e = document.getElementById("test");
+//	e.innerHTML = "<strong>Hello World</string>";
+},3000); // 타임아웃이 3초후에 코드 실행
+								// 이게 비동기 방식
+for(i=0; i<5; i++){
+	console.log("Helloworld : " + i);
+	
+}
+</script>
 </head>
 <body>
 	<div id="container">
@@ -53,6 +108,9 @@
 				</ul>
 			</div>
 		</div>
+		<p>
+		<p id="test">
+		</p>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
