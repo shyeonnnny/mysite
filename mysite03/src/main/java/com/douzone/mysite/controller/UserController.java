@@ -67,12 +67,15 @@ public class UserController {
 	
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(HttpSession session, Model model) {
-		// 접근제어(Access Control List)
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		//////////////////////////////////////////////////////////
+		
+		
+		
+//		// 접근제어(Access Control List)
+//		UserVo authUser = (UserVo)session.getAttribute("authUser");
+//		if(authUser == null) {
+//			return "redirect:/";
+//		}
+//		//////////////////////////////////////////////////////////
 		
 		UserVo userVo = userService.getUser(authUser.getNo());
 		model.addAttribute("userVo", userVo);
