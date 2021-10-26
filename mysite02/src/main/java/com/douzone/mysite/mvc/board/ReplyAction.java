@@ -49,7 +49,7 @@ public class ReplyAction implements Action {
 		
 		new BoardDao().replyInsert(vo2);
 		
-		MvcUtil.redirect(request.getContextPath()+"/board", request, response);
+		MvcUtil.redirect(request.getContextPath()+"/board?ba&p=1", request, response);
 		
 
 		

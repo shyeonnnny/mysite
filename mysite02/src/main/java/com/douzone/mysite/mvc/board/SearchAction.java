@@ -6,21 +6,19 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.douzone.mysite.dao.BoardDao;
 import com.douzone.mysite.vo.BoardVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class BoardAction implements Action {
+public class SearchAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		List<BoardVo> boardVo = null;
-		HttpSession session = request.getSession();
 		
+		String kwd = request.getParameter("kwd");
 		Long p = Long.parseLong(request.getParameter("p"));
 		Long startBoard = (p*10)-9;
 		
@@ -31,15 +29,14 @@ public class BoardAction implements Action {
 		Long maxPageNum = ((boardLength/10)+((boardLength%10)==0?0:1));
 		
 		System.out.println(startPageNum + "@@@@@" + endPageNum + "@@@@" + maxPageNum + "@@@" + boardLength);
-		
+		System.out.println(kwd);
 		if(endPageNum > maxPageNum) {
 			endPageNum=maxPageNum;
 		}
 		
-		List<BoardVo> list = new BoardDao().findAll();
-		request.setAttribute("list", list);
+		boardVo = new BoardDao().searchFile(kwd,p);
 		
-		boardVo = new BoardDao().findPage(startBoard);
+		boardVo = new BoardDao().searchFile(kwd, p);
 		
 		request.setAttribute("p", p);
 		request.setAttribute("startBoard", startBoard);
@@ -50,7 +47,9 @@ public class BoardAction implements Action {
 		request.setAttribute("boardList", boardVo);
 		
 		
+		
 		MvcUtil.forward("board/list", request, response);
+
 	}
 
 }

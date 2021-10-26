@@ -27,7 +27,7 @@ public class ModifyAction implements Action {
 
 		new BoardDao().update(vo);
 
-		MvcUtil.redirect(request.getContextPath()+"/board", request, response);
+		MvcUtil.redirect(request.getContextPath()+"/board?ba&p=1", request, response);
 		
 		
 	}

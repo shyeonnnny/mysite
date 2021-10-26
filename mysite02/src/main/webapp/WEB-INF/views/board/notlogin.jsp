@@ -14,7 +14,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="guestbook" class="delete-form">
-				<form method="post" action="${pageContext.request.contextPath }/board">
+				<form method="post" action="${pageContext.request.contextPath }/board?ba&p=1">
 					<input type="hidden" name="ga" value="delete">
 					<input type='hidden' name="no" value="${param.no }">
 					<label>로그인 후 사용해주세요</label>

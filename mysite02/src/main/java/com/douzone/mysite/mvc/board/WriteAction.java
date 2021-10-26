@@ -32,7 +32,7 @@ public class WriteAction implements Action {
 		
 		
 		new BoardDao().insertNewContents(vo);
-		MvcUtil.redirect(request.getContextPath() + "/board",request, response);
+		MvcUtil.redirect(request.getContextPath() + "/board?ba&p=1",request, response);
 	}
 
 }

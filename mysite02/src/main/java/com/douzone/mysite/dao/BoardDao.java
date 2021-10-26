@@ -13,6 +13,173 @@ import com.douzone.mysite.vo.UserVo;
 
 public class BoardDao {
 	
+	public List<BoardVo> searchFile(String kwd, Long p) {
+		List<BoardVo> list = new ArrayList<>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = " select a.no, a.title, a.hit, a.reg_date,"
+					+ "			a.depth, b.name, a.user_no"
+					+ "		from board a, user b"
+					+ "		where a.user_no = b.no"
+					+ "		and (title like %?% or contents like %?%)"
+					+ "		order by group_no desc, order_no asc"
+					+ "		limit ?, 10";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, kwd);
+			pstmt.setString(2, kwd);
+			pstmt.setLong(3, (p-1));
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Long no = rs.getLong(1);
+				String title = rs.getString(2);
+				Long hit = rs.getLong(3);
+				String reg_date = rs.getString(4);
+				int depth = rs.getInt(5);
+				String name = rs.getString(6);
+				Long user_no = rs.getLong(7);
+
+				BoardVo vo = new BoardVo();
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setHit(hit);
+				vo.setReg_date(reg_date);
+				vo.setDepth(depth);
+				vo.setUser_no(user_no);
+				vo.setUser_name(name);
+
+				list.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	
+	public List<BoardVo> findPage(long p) {
+		List<BoardVo> list = new ArrayList<>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select a.no, a.title, a.contents, a.hit, a.reg_date, a.group_no, a.order_no, a.depth, b.no as user_no, b.name "
+					+ "		from board a, user b " + "    where a.user_no = b.no "
+					+ "    order by a.group_no desc, a.order_no asc limit ?,10 ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, (p-1));
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Long no = rs.getLong(1);
+				String title = rs.getString(2);
+				String contents = rs.getString(3);
+				Long hit = rs.getLong(4);
+				String reg_date = rs.getString(5);
+				int group_no = rs.getInt(6);
+				int order_no = rs.getInt(7);
+				int depth = rs.getInt(8);
+				Long user_no = rs.getLong(9);
+				String name = rs.getString(10);
+
+				BoardVo vo = new BoardVo();
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setContents(contents);
+				vo.setHit(hit);
+				vo.setReg_date(reg_date);
+				vo.setGroup_no(group_no);
+				vo.setOrder_no(order_no);
+				vo.setDepth(depth);
+				vo.setUser_no(user_no);
+				vo.setUser_name(name);
+
+				list.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	
+	public Long countBoardNum() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		long countBoardNum = 0;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select count(no) from board";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			rs.next();
+			countBoardNum = rs.getLong(1);
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return countBoardNum;
+	}
+	
 	public boolean replyInsert(BoardVo vo) {
 		boolean result = false;
 
@@ -344,9 +511,8 @@ public class BoardDao {
 
 			String sql = "select a.no, a.title, a.contents, a.hit, a.reg_date, a.group_no, a.order_no, a.depth, b.no as user_no, b.name "
 					+ "		from board a, user b " + "    where a.user_no = b.no "
-					+ "    order by a.group_no desc, a.order_no asc limit 0,10 ";
+					+ "    order by a.group_no desc, a.order_no asc";
 			pstmt = conn.prepareStatement(sql);
-
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

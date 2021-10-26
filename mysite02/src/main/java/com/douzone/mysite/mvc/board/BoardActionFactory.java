@@ -28,6 +28,8 @@ public class BoardActionFactory extends ActionFactory{
 			action = new ReplyFormAction();
 		} else if("reply".equals(actionName)) { // 글내용보기
 			action = new ReplyAction();
+		} else if("search".equals(actionName)) { // 글내용보기
+			action = new SearchAction();
 		} else {
 			action = new BoardAction();
 		}
