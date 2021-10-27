@@ -1,0 +1,56 @@
+package com.douzone.mysite.mvc.board;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.douzone.mysite.repository.BoardRepository;
+import com.douzone.mysite.vo.BoardVo;
+import com.douzone.web.mvc.Action;
+import com.douzone.web.util.MvcUtil;
+
+public class BoardAction implements Action {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		List<BoardVo> boardVo = null;
+		HttpSession session = request.getSession();
+		
+		Long p = Long.parseLong(request.getParameter("p"));
+		Long startBoard = (p*10)-9;
+		
+		Long boardLength = new BoardRepository().countBoardNum();
+		
+		Long startPageNum = ((((p-1)/5)*5)+1);
+		Long endPageNum = startPageNum+4;
+		Long maxPageNum = ((boardLength/10)+((boardLength%10)==0?0:1));
+		
+		System.out.println(startPageNum + "@@@@@" + endPageNum + "@@@@" + maxPageNum + "@@@" + boardLength);
+		
+		if(endPageNum > maxPageNum) {
+			endPageNum=maxPageNum;
+		}
+		
+		List<BoardVo> list = new BoardRepository().findAll();
+		request.setAttribute("list", list);
+		
+		boardVo = new BoardRepository().findPage(startBoard);
+		
+		request.setAttribute("p", p);
+		request.setAttribute("startBoard", startBoard);
+		request.setAttribute("maxPageNum", maxPageNum);
+		request.setAttribute("maxBoardNum", boardLength);
+		request.setAttribute("startPageNum", startPageNum);
+		request.setAttribute("endPageNum", endPageNum);
+		request.setAttribute("boardList", boardVo);
+		
+		
+		MvcUtil.forward("board/list", request, response);
+	}
+
+}

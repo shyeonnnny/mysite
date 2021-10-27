@@ -27,12 +27,12 @@ public class BoardDao {
 					+ "			a.depth, b.name, a.user_no"
 					+ "		from board a, user b"
 					+ "		where a.user_no = b.no"
-					+ "		and (title like %?% or contents like %?%)"
+					+ "		and (title like ? or contents like ?)"
 					+ "		order by group_no desc, order_no asc"
 					+ "		limit ?, 10";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, kwd);
-			pstmt.setString(2, kwd);
+			pstmt.setString(1, "%" + kwd + "%");
+			pstmt.setString(2, "%" + kwd + "%");
 			pstmt.setLong(3, (p-1));
 			rs = pstmt.executeQuery();
 

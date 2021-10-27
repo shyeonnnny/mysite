@@ -36,7 +36,6 @@ public class SearchAction implements Action {
 		
 		boardVo = new BoardDao().searchFile(kwd,p);
 		
-		boardVo = new BoardDao().searchFile(kwd, p);
 		
 		request.setAttribute("p", p);
 		request.setAttribute("startBoard", startBoard);

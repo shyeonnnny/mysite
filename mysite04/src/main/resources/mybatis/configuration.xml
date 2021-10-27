@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+
+		<typeAlias type="com.douzone.mysite.vo.UserVo" alias="uservo" />
+
+		<!-- alias는 소문자로 적어줘야하는 규칙이있음 -->
+	</typeAliases>
+	<mappers>
+
+		<mapper resource="mybatis/mappers/user.xml" />
+
+	</mappers>
+</configuration>
