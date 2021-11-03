@@ -9,11 +9,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
-
-	@RequestMapping({"","/main"})
+	
+	@RequestMapping({"", "/main"})
 	public String index() {
-		System.out.println("asdasdasdasd");
 		return "main/index";
+	}	
+	
+	@ResponseBody
+	@RequestMapping("/msg01")
+	public String message01() {
+		return "안녕";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping("/msg02")
+	public Object message02(/*HttpServletResponse resp*/) throws Exception {
+		//resp.setContentType("application/json; charset=UTF-8");
+		//resp.getWriter().print("{\"message\":\"Hello World\"}");
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("message", "Hello World");
+		
+		return map;
+	}
 }
